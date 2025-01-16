@@ -58,7 +58,7 @@ class Hand:
             self.aces = self.value - 1
 
         # Clase fichas
-class Chips:
+class fichas:
 
     def __init__(self):
         self.total = 100
@@ -72,15 +72,15 @@ class Chips:
 
 
 # Funcion para recibir apuestas
-def take_bet(chips):
+def take_bet(fichas):
     while True:
         try:
-            chips.bet = int(input(f'¿Cuántas fichas quieres apostar? Te quedan {chips.total} fichas: '))
+            fichas.bet = int(input(f'¿Cuántas fichas quieres apostar? Te quedan {fichas.total} fichas: '))
         except:
             print('Ingresa un valor numérico por favor: ')
         else:
-            if chips.bet > chips.total:
-                print(f'Tu apuesta debe ser menor a {chips.total}')
+            if fichas.bet > fichas.total:
+                print(f'Tu apuesta debe ser menor a {fichas.total}')
             else:
                 break
 
@@ -134,24 +134,24 @@ def show_all(player, dealer, name):
 
 
 ######## Funciones para saber quien gana ##########
-def player_busts(chips, name):
+def player_busts(fichas, name):
     print(f'{name} supero 21. La casa gana')
-    chips.lose_bet()
+    fichas.lose_bet()
 
 
-def player_wins(chips, name):
+def player_wins(fichas, name):
     print(f"\n{name} gana")
-    chips.win_bet()
+    fichas.win_bet()
 
 
-def dealer_busts(chips, name):
+def dealer_busts(fichas, name):
     print(f"\nLa casa supero 21. {name} gana")
-    chips.win_bet()
+    fichas.win_bet()
 
 
-def dealer_wins(chips):
+def dealer_wins(fichas):
     print("\nLa casa gana")
-    chips.lose_bet()
+    fichas.lose_bet()
 
 
 def push(name):
@@ -161,7 +161,7 @@ def push(name):
 #####################################################
 
 name = input("¿Cuál es tu nombre?: ")
-chips = Chips()
+fichas = fichas()
 
 while True:
     print(f"\nBienvenido al Blackjack del Casino Brundin, {name}!")
@@ -180,7 +180,7 @@ while True:
     dealer_hand.add_card(deck.deal())
     dealer_hand.add_card(deck.deal())
 
-    take_bet(chips)
+    take_bet(fichas)
 
     print(f"\n########")
     show_some(player_hand, dealer_hand, name)
@@ -195,7 +195,7 @@ while True:
         show_some(player_hand, dealer_hand, name)
 
         if player_hand.value > 21:
-            player_busts(chips, name)
+            player_busts(fichas, name)
             break
 
     if player_hand.value <= 21:
@@ -207,15 +207,15 @@ while True:
         turno = turno + 1
         show_all(player_hand, dealer_hand, name)
         if dealer_hand.value > 21:
-            dealer_busts(chips, name)
+            dealer_busts(fichas, name)
         elif dealer_hand.value > player_hand.value:
-            dealer_wins(chips)
+            dealer_wins(fichas)
         elif player_hand.value > dealer_hand.value:
-            player_wins(chips, name)
+            player_wins(fichas, name)
         else:
             push(name)
 
-    print(f'Tienes {chips.total} fichas')
+    print(f'Tienes {fichas.total} fichas')
 
     new_game = input("¿Quieres jugar de nuevo?: ")
 
